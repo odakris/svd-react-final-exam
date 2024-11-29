@@ -32,13 +32,3 @@ export const SuitMap = {
   diamonds: "♦️",
   spades: "♠️",
 };
-
-export type PlayingCardProps = {
-  id: number;
-  rank: string;
-  value: number;
-  suit: string;
-  symbol: string;
-  color: Colors;
-  isCardRevealed: boolean;
-};

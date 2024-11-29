@@ -8,7 +8,7 @@ type PlayingCardProps = {
   suit: string;
   symbol: string;
   color: Colors;
-  isCardRevealed: boolean;
+  isCardRevealed?: boolean;
 };
 
 export default function PlayingCard({
