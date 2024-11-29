@@ -15,6 +15,7 @@ export default function Page() {
   const [isBataille, setIsBataille] = useState<boolean>(false);
   const [bataillePlayerCards, setBataillePlayerCards] = useState<CardType[]>([]);
   const [batailleComputerCards, setBatailleComputerCards] = useState<CardType[]>([]);
+  const [isDisabledButton, setIsDisabledButton] = useState<boolean>(false);
 
   // GAME SETUP
   const startGame = () => {
@@ -71,6 +72,7 @@ export default function Page() {
       // BATLLE
       setMessage("BATAILLE !!!");
       setIsBataille(true);
+      setIsDisabledButton(true);
       handleBataille(currentPlayerCard, currentComputerCard);
     }
   };
@@ -112,7 +114,7 @@ export default function Page() {
       // END BATTLE
       setTimeout(() => {
         setIsBataille(false);
-      }, 5000);
+      }, 2000);
     } else if (currentBataillePlayerCards[2].value < currentBatailleComputerCards[2].value) {
       // MESSAGE
       setMessage("Computer won the previous War!");
@@ -126,7 +128,7 @@ export default function Page() {
       // END BATTLE
       setTimeout(() => {
         setIsBataille(false);
-      }, 5000);
+      }, 2000);
     } else {
       // BATTLE AGAIN
       setMessage("ANOTHER BATAILLE !!!");
@@ -136,7 +138,8 @@ export default function Page() {
 
     setTimeout(() => {
       setIsBataille(false);
-    }, 5000);
+      setIsDisabledButton(false);
+    }, 2000);
   };
 
   return (
@@ -176,7 +179,11 @@ export default function Page() {
       </div>
 
       <div className="w-full flex flex-col justify-center items-center">
-        <Button className="w-[100px] text-xl m-4" onClick={handleRound}>
+        <Button
+          className="w-[200px] text-xl m-4 font-semibold"
+          onClick={handleRound}
+          disabled={isDisabledButton}
+        >
           Next Card
         </Button>
         <Card className="w-full h-[50px] bg-white">
