@@ -1,29 +1,14 @@
-import { Card, Colors, Rank, Suit, SuitMap } from "../types/types";
+import { CardType, Colors, Rank, Suit, SuitMap } from "../types/types";
 
 export const suits: Suit[] = ["spades", "diamonds", "hearts", "clubs"];
 
-export const ranks: Rank[] = [
-  "2",
-  "3",
-  "4",
-  "5",
-  "6",
-  "7",
-  "8",
-  "9",
-  "10",
-  "J",
-  "Q",
-  "K",
-  "A",
-];
+export const ranks: Rank[] = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"];
 
-const CardsGeneration = (): Card[] => {
-  const cards: Card[] = [];
+const CardsGeneration = (): CardType[] => {
+  const cards: CardType[] = [];
 
   suits.forEach((suit, suitIndex) => {
-    const color: Colors =
-      suit === "hearts" || suit == "diamonds" ? "red" : "indigo";
+    const color: Colors = suit === "hearts" || suit == "diamonds" ? "red" : "indigo";
 
     ranks.forEach((rank, rankIndex) => {
       let value: number;

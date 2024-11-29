@@ -5,11 +5,10 @@ import CardsGeneration from "@/utils/CardsGeneration";
 import Shuffle from "@/utils/Shuffle";
 import { useEffect, useState } from "react";
 import { CardType } from "@/types/types";
-import { Button } from "../../components/ui/button";
-import { Card, CardContent } from "../../components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
 
 export default function Page() {
-  //   const [isGameStarted, setIsGameStarted] = useState<boolean>(false);
   const [computerCards, setComputerCards] = useState<CardType[]>([]);
   const [playerCards, setPlayerCards] = useState<CardType[]>([]);
   const [message, setMessage] = useState<string>("");
@@ -141,7 +140,7 @@ export default function Page() {
   };
 
   return (
-    <div className=" h-full w-full flex flex-col justify-evenly">
+    <div className="h-full w-full flex flex-col justify-evenly">
       <div>
         <Card className="w-full h-[50px] bg-white">
           <CardContent className="flex justify-center p-3">{`Remaining Computer Cards: ${computerCards.length}`}</CardContent>
