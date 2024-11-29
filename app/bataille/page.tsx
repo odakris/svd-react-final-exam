@@ -48,7 +48,7 @@ export default function Page() {
     // CARD COMPARISON AND WINNER & LOSER
     if (currentPlayerCard.value > currentComputerCard.value) {
       // WINNER ROUND PLAYER
-      setMessage("Player wins the round!");
+      setMessage("Player won the previous round!");
 
       // SET NEW PLAYER CARDS
       const newPlayerCards = [...playerCards.slice(1), currentPlayerCard, currentComputerCard];
@@ -59,7 +59,7 @@ export default function Page() {
       setComputerCards(newComputerCards);
     } else if (currentPlayerCard.value < currentComputerCard.value) {
       // WINNER ROUND COMPUTER
-      setMessage("Computer wins the round!");
+      setMessage("Computer won the previous round!");
 
       // SET NEW PLAYER CARDS
       const newPlayerCards = playerCards.slice(1);
@@ -103,32 +103,36 @@ export default function Page() {
     // COMPARISON TO DETERMINE BATTLE WINNER
     if (currentBataillePlayerCards[2].value > currentBatailleComputerCards[2].value) {
       // MESSAGE
-      setMessage("Player wins the War!");
+      setMessage("Player won the previous War!");
 
       // PLAYER WINS
-      setPlayerCards([
-        ...newPlayerCards,
-        ...currentBataillePlayerCards,
-        ...currentBatailleComputerCards,
-      ]);
+      setPlayerCards([...newPlayerCards, ...bataillePlayerCards, ...batailleComputerCards]);
       // COMPUTER LOST
       setComputerCards(newComputerCards);
+
+      // END BATTLE
+      setTimeout(() => {
+        setIsBataille(false);
+      }, 5000);
     } else if (currentBataillePlayerCards[2].value < currentBatailleComputerCards[2].value) {
       // MESSAGE
-      setMessage("Computer wins the War!");
+      setMessage("Computer won the previous War!");
 
       // COMPUTER WINS
-      setComputerCards([
-        ...newComputerCards,
-        ...currentBatailleComputerCards,
-        ...currentBataillePlayerCards,
-      ]);
+      setComputerCards([...newComputerCards, ...batailleComputerCards, ...bataillePlayerCards]);
 
       // PLAYER LOST
       setPlayerCards(newPlayerCards);
+
+      // END BATTLE
+      setTimeout(() => {
+        setIsBataille(false);
+      }, 5000);
     } else {
       // BATTLE AGAIN
       setMessage("ANOTHER BATAILLE !!!");
+      setIsBataille(true);
+      handleBataille(bataillePlayerCards[2], batailleComputerCards[2]);
     }
 
     setTimeout(() => {
@@ -184,30 +188,71 @@ export default function Page() {
       <div>
         <div className="flex justify-center flex-wrap">
           {playerCards.length > 0 && !isBataille ? (
-            <PlayingCard
-              key={`player-${playerCards[0].id}`}
-              rank={playerCards[0].rank}
-              value={playerCards[0].value}
-              suit={playerCards[0].suit}
-              id={playerCards[0].id}
-              symbol={playerCards[0].symbol}
-              color={playerCards[0].color}
-              isCardFaceDown={false}
-            />
-          ) : (
-            bataillePlayerCards.length > 0 &&
-            bataillePlayerCards.map((card, index) => (
+            <div className="flex">
               <PlayingCard
-                key={`player-${card.id}-${index}`}
-                rank={card.rank}
-                value={card.value}
-                suit={card.suit}
-                id={card.id}
-                symbol={card.symbol}
-                color={card.color}
-                isCardFaceDown={index % 2 !== 0}
+                key={`player-${playerCards[0].id}`}
+                rank={playerCards[0].rank}
+                value={playerCards[0].value}
+                suit={playerCards[0].suit}
+                id={playerCards[0].id}
+                symbol={playerCards[0].symbol}
+                color={playerCards[0].color}
+                isCardFaceDown={false}
               />
-            ))
+              {/* Display the "Next Card" */}
+              {playerCards.length > 1 && (
+                <div className="absolute right-10 scale-75">
+                  <Card className="w-full h-[50px] bg-white">
+                    <CardContent className="flex justify-center p-3">Next Card</CardContent>
+                  </Card>
+                  <PlayingCard
+                    key={`player-${playerCards[1].id}`}
+                    rank={playerCards[1].rank}
+                    value={playerCards[1].value}
+                    suit={playerCards[1].suit}
+                    id={playerCards[1].id}
+                    symbol={playerCards[1].symbol}
+                    color={playerCards[1].color}
+                    isCardFaceDown={false}
+                  />
+                </div>
+              )}
+            </div>
+          ) : (
+            bataillePlayerCards.length > 0 && (
+              <div className="flex">
+                {bataillePlayerCards.map((card, index) => (
+                  <PlayingCard
+                    key={`player-${card.id}-${index}`}
+                    rank={card.rank}
+                    value={card.value}
+                    suit={card.suit}
+                    id={card.id}
+                    symbol={card.symbol}
+                    color={card.color}
+                    isCardFaceDown={index % 2 !== 0}
+                  />
+                ))}
+                {/* Display the "Next Card" after mapping through bataillePlayerCards */}
+                {playerCards.length > 1 && (
+                  <div className="absolute right-10 scale-75">
+                    <Card className="w-[100px] h-[50px] bg-white">
+                      <CardContent className="flex justify-center p-3">Next Card</CardContent>
+                    </Card>
+                    <PlayingCard
+                      key={`player-next-${playerCards[1].id}`}
+                      rank={playerCards[1].rank}
+                      value={playerCards[1].value}
+                      suit={playerCards[1].suit}
+                      id={playerCards[1].id}
+                      symbol={playerCards[1].symbol}
+                      color={playerCards[1].color}
+                      isCardFaceDown={false}
+                    />
+                  </div>
+                )}
+              </div>
+            )
           )}
         </div>
         <Card className="w-full h-[50px] bg-white">
