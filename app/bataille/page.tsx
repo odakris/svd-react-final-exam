@@ -9,17 +9,22 @@ import { Button } from "../../components/ui/button";
 import { Card, CardContent } from "../../components/ui/card";
 
 export default function Page() {
+  //   const [isGameStarted, setIsGameStarted] = useState<boolean>(false);
   const [allCards, setAllCards] = useState<CardType[]>([]);
   const [computerCards, setComputerCards] = useState<CardType[]>([]);
   const [playerCards, setPlayerCards] = useState<CardType[]>([]);
   const [message, setMessage] = useState<string>("");
 
+  //   setIsGameStarted(true);
   // GAME SET UP
   const startGame = () => {
     const shuffleCards = Shuffle(CardsGeneration());
     setAllCards(shuffleCards);
 
-    const computerHalf = allCards.slice(0, Math.ceil(shuffleCards.length / 2));
+    const computerHalf = shuffleCards.slice(
+      0,
+      Math.ceil(shuffleCards.length / 2)
+    );
     setComputerCards(computerHalf);
 
     const playerHalf = shuffleCards.slice(Math.ceil(shuffleCards.length / 2));
@@ -30,8 +35,12 @@ export default function Page() {
     startGame();
   }, []);
 
-  //   console.log(playerCards[0].id);
+  // HANDLE ROUND
   const handleRound = () => {
+    if (playerCards.length === 0 || computerCards.length === 0) {
+      setMessage("GAME OVER");
+      return;
+    }
     const currentPlayerCard = playerCards[0];
     const currentComputerCard = computerCards[0];
 
@@ -55,14 +64,15 @@ export default function Page() {
       setComputerCards(newComputerCards);
     } else {
       console.log("BATAILLE");
+      setMessage("BATAILLE !!!");
     }
   };
 
   return (
-    <>
-      <>
-        <Card>
-          <CardContent>{`Remaining Computer Cards: ${computerCards.length}`}</CardContent>
+    <div className=" h-full w-full flex flex-col justify-evenly">
+      <div>
+        <Card className="w-full h-[50px] bg-white">
+          <CardContent className="flex justify-center p-3">{`Remaining Computer Cards: ${computerCards.length}`}</CardContent>
         </Card>
         <div className="flex justify-center flex-wrap">
           {computerCards.length > 0 && (
@@ -77,19 +87,18 @@ export default function Page() {
             />
           )}
         </div>
-      </>
-      <div className="w-full flex justify-center">
+      </div>
+      <div className="w-full flex flex-col justify-center items-center">
         <Button className="w-[100px] text-xl m-4" onClick={handleRound}>
           Next Card
         </Button>
-        <Card>
-          <CardContent>{message}</CardContent>
+        <Card className="w-full h-[50px] bg-white">
+          <CardContent className="flex justify-center p-3">
+            {message}
+          </CardContent>
         </Card>
       </div>
-      <>
-        <Card>
-          <CardContent>{`Remaining Player Cards: ${playerCards.length}`}</CardContent>
-        </Card>
+      <div>
         <div className="flex justify-center flex-wrap">
           {computerCards.length > 0 && (
             <PlayingCard
@@ -103,7 +112,10 @@ export default function Page() {
             />
           )}
         </div>
-      </>
-    </>
+        <Card className="w-full h-[50px] bg-white">
+          <CardContent className="flex justify-center p-3">{`Remaining Player Cards: ${playerCards.length}`}</CardContent>
+        </Card>
+      </div>
+    </div>
   );
 }

@@ -20,10 +20,10 @@ export default function PlayingCard({
   return (
     <Card
       key={id}
-      className="border-3 w-[200px] h-[300px] border-4 flex justify-center m-4"
+      className="border-3 w-[150px] h-[200px] border-4 flex justify-center items m-4"
     >
       <CardContent
-        className={`h-0 text-4xl relative left-16 top-3 ${
+        className={`h-0 text-2xl relative left-14 top-1 ${
           color === "red" ? "text-red-500" : "text-indigo-800"
         }`}
       >
@@ -37,7 +37,7 @@ export default function PlayingCard({
         {symbol}
       </CardContent>
       <CardContent
-        className={`h-0 text-4xl relative right-16 top-60 ${
+        className={`h-0 text-2xl relative right-14 top-40 ${
           color === "red" ? "text-red-500" : "text-indigo-800"
         }`}
       >
