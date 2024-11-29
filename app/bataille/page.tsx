@@ -48,7 +48,11 @@ export default function Page() {
       console.log("Player wins the round!");
       setMessage("Player wins the round!");
 
-      const newPlayerCards = [...playerCards, currentComputerCard];
+      const newPlayerCards = [
+        ...playerCards.slice(1),
+        currentPlayerCard,
+        currentComputerCard,
+      ];
       setPlayerCards(newPlayerCards);
 
       const newComputerCards = computerCards.slice(1);
@@ -60,7 +64,11 @@ export default function Page() {
       const newPlayerCards = computerCards.slice(1);
       setPlayerCards(newPlayerCards);
 
-      const newComputerCards = [...playerCards, currentComputerCard];
+      const newComputerCards = [
+        ...computerCards.slice(1),
+        currentComputerCard,
+        currentPlayerCard,
+      ];
       setComputerCards(newComputerCards);
     } else {
       console.log("BATAILLE");
