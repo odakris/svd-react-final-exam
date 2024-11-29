@@ -15,7 +15,7 @@ export type Rank =
   | "K"
   | "A";
 
-export type Colors = "red" | "indigo";
+export type Colors = "red" | "indigo" | string;
 
 export type CardType = {
   id: number;

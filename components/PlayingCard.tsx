@@ -8,7 +8,7 @@ type PlayingCardProps = {
   suit: string;
   symbol: string;
   color: Colors;
-  isCardRevealed?: boolean;
+  isCardFaceDown?: boolean;
 };
 
 export default function PlayingCard({
@@ -16,32 +16,35 @@ export default function PlayingCard({
   rank,
   symbol,
   color,
+  isCardFaceDown,
 }: PlayingCardProps) {
   return (
     <Card
       key={id}
-      className="border-3 w-[150px] h-[200px] border-4 flex justify-center items m-4"
+      className={`border-3 w-[150px] h-[200px] border-4 flex justify-center m-4 ${
+        isCardFaceDown ? "bg-black" : ""
+      }`}
     >
       <CardContent
         className={`h-0 text-2xl relative left-14 top-1 ${
           color === "red" ? "text-red-500" : "text-indigo-800"
         }`}
       >
-        {rank}
+        {isCardFaceDown ? "" : rank}
       </CardContent>
       <CardContent
         className={`text-7xl flex justify-center items-center ${
           color === "red" ? "text-red-500" : "text-black"
         }`}
       >
-        {symbol}
+        {isCardFaceDown ? "" : symbol}
       </CardContent>
       <CardContent
         className={`h-0 text-2xl relative right-14 top-40 ${
           color === "red" ? "text-red-500" : "text-indigo-800"
         }`}
       >
-        {rank}
+        {isCardFaceDown ? "" : rank}
       </CardContent>
     </Card>
   );
