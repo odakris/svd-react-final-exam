@@ -18,10 +18,10 @@ export type Rank =
 export type Colors = "red" | "indigo";
 
 export type Card = {
-  suit: Suit;
+  id: number;
   rank: Rank;
   value: number;
-  id: number;
+  suit: Suit;
   symbol: string;
   color: Colors;
 };
@@ -31,4 +31,14 @@ export const SuitMap = {
   clubs: "♣️",
   diamonds: "♦️",
   spades: "♠️",
+};
+
+export type PlayingCardProps = {
+  id: number;
+  rank: string;
+  value: number;
+  suit: string;
+  symbol: string;
+  color: Colors;
+  isCardRevealed: boolean;
 };
