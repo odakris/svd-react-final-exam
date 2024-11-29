@@ -17,7 +17,7 @@ export type Rank =
 
 export type Colors = "red" | "indigo";
 
-export type Card = {
+export type CardType = {
   id: number;
   rank: Rank;
   value: number;
